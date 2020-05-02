@@ -40,7 +40,7 @@ fun main(args: Array<String>) {
         try {
             id = ctx.pathParam("id").toInt()
         } catch (nfe: NumberFormatException) {
-            ctx.result("Invalid id")
+            ctx.result(gson.toJson(ErrorData("Invalid id")))
             return
         }
         val noteData = transaction(db) {
@@ -73,6 +73,21 @@ fun main(args: Array<String>) {
             }
         }
         ctx.result(gson.toJson(note))
+    })
+
+    app.delete("/notes/:id", fun(ctx) {
+        val gson = Gson()
+        var id: Int
+        try {
+            id = ctx.pathParam("id").toInt()
+        } catch (nfe: NumberFormatException) {
+            ctx.result(gson.toJson(ErrorData("Invalid id")))
+            return
+        }
+        val noteData = transaction(db) {
+            NotesTable.deleteWhere { NotesTable.id eq id }
+            println("Deleted note '${id}'")
+        }
     })
 }
 
