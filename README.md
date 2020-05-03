@@ -8,3 +8,6 @@ Read a note based on note id.
 ## POST /notes
 Create or update a note.
 
+## DELETE /notes/{id}
+Delete a note based on note id.
+
