@@ -7,7 +7,13 @@ import io.javalin.http.Context
 import java.lang.NumberFormatException
 import ca.alexleung.skratchpad.models.*
 
-class NotesController {
+interface NotesController {
+    fun get(ctx: Context)
+    fun post(ctx: Context)
+    fun delete(ctx: Context)
+}
+
+class NotesControllerImpl : NotesController {
     private var db: Database
 
     constructor(db: Database) {
@@ -17,7 +23,7 @@ class NotesController {
         }
     }
 
-    fun get(ctx: Context) {
+    override fun get(ctx: Context) {
         val gson = Gson()
         var id: Int
         try {
@@ -38,7 +44,7 @@ class NotesController {
         }
     }
 
-    fun post(ctx: Context) {
+    override fun post(ctx: Context) {
         val gson = Gson()
         val note = gson.fromJson(ctx.body(), NoteData::class.java)
         transaction(db) {
@@ -58,7 +64,7 @@ class NotesController {
         ctx.result(gson.toJson(note))
     }
 
-    fun delete(ctx: Context) {
+    override fun delete(ctx: Context) {
         val gson = Gson()
         var id: Int
         try {

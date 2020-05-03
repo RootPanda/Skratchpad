@@ -19,6 +19,7 @@ dependencies {
     implementation("org.jetbrains.exposed", "exposed-jdbc", "0.23.1")
     implementation("org.postgresql:postgresql:42.2.9")
     implementation("com.google.code.gson:gson:2.8.6")
+    implementation("org.koin:koin-core:2.1.5")
 }
 
 tasks {
