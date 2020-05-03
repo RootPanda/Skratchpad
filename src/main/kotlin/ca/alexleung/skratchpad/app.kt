@@ -1,7 +1,8 @@
 package ca.alexleung.skratchpad
 
-import io.javalin.Javalin
-import org.jetbrains.exposed.sql.*
+import ca.alexleung.skratchpad.controllers.NotesController
+import ca.alexleung.skratchpad.routes.NotesRoutes
+import org.jetbrains.exposed.sql.Database
 
 fun main(args: Array<String>) {
     val db = Database.connect(
@@ -10,12 +11,8 @@ fun main(args: Array<String>) {
         user = "postgres", password = "postgres"
     )
 
-    val app = Javalin.create().start()
-
-    val restfulNote = RestfulNote(db)
-
-    app.get("/notes/:id", restfulNote::get)
-    app.post("/notes", restfulNote::post)
-    app.delete("/notes/:id", restfulNote::delete)
+    val notesController = NotesController(db)
+    val notesRoutes = NotesRoutes(notesController)
+    notesRoutes.init()
 }
 

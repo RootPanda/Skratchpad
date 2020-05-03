@@ -1,28 +1,13 @@
-package ca.alexleung.skratchpad
+package ca.alexleung.skratchpad.controllers
 
 import com.google.gson.Gson
-import org.jetbrains.exposed.dao.id.IntIdTable
 import org.jetbrains.exposed.sql.transactions.transaction
-import io.javalin.http.Context
 import org.jetbrains.exposed.sql.*
+import io.javalin.http.Context
 import java.lang.NumberFormatException
+import ca.alexleung.skratchpad.models.*
 
-object NotesTable : IntIdTable() {
-    val body: Column<String> = varchar("body", 255)
-}
-
-data class ErrorData(
-    var error: String
-)
-
-data class NoteData(
-    var id: Int?,
-    var body: String
-)
-
-fun ResultRow.toNoteData() = NoteData(this[NotesTable.id].value, this[NotesTable.body])
-
-class RestfulNote {
+class NotesController {
     private var db: Database
 
     constructor(db: Database) {
