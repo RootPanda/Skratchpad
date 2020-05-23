@@ -1,0 +1,37 @@
+version: "3"
+
+services:
+
+    postgres:
+        image: postgres:latest
+        restart: always
+        ports:
+            - "5432:5432"
+        volumes:
+            - postgres:/var/lib/postgresql/data
+        environment:
+            POSTGRES_USER: postgres
+            POSTGRES_PASSWORD: postgres
+            POSTGRES_DB: skratchpad
+
+    adminer:
+        image: adminer
+        restart: always
+        ports:
+            - "8080:8080"
+
+    skratchpad:
+        image: skratchpad
+        restart: always
+        ports:
+            - "7000:7000"
+        environment:
+            SKRATCHPAD_DATABASE_URL: jdbc:postgresql://postgres:5432/skratchpad
+
+volumes:
+    postgres:
+
+networks:
+    default:
+        external:
+            name: local

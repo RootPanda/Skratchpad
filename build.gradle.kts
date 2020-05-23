@@ -3,7 +3,7 @@ plugins {
 }
 
 group = "ca.alexleung"
-version = "1.0-SNAPSHOT"
+version = "1.0"
 
 repositories {
     mavenCentral()
@@ -30,3 +30,4 @@ tasks {
         kotlinOptions.jvmTarget = "1.8"
     }
 }
+
