@@ -21,7 +21,7 @@ services:
             - "8080:8080"
 
     skratchpad:
-        image: skratchpad
+        image: skratchpad:latest
         restart: always
         ports:
             - "7000:7000"
