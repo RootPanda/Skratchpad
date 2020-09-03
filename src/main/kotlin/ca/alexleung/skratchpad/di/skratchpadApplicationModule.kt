@@ -1,12 +1,12 @@
 package ca.alexleung.skratchpad.di
 
 import ca.alexleung.skratchpad.controllers.NotesController
-import ca.alexleung.skratchpad.controllers.NotesControllerImpl
+import ca.alexleung.skratchpad.controllers.RealNotesController
 import ca.alexleung.skratchpad.routes.NotesRoutes
-import ca.alexleung.skratchpad.routes.NotesRoutesImpl
+import ca.alexleung.skratchpad.routes.RealNotesRoutes
 import org.koin.dsl.module
 
 val skratchpadApplicationModule = module {
-    single { NotesControllerImpl(get()) as NotesController }
-    single { NotesRoutesImpl(get()) as NotesRoutes }
+    single { RealNotesController(get()) as NotesController }
+    single { RealNotesRoutes(get()) as NotesRoutes }
 }

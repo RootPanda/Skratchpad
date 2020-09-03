@@ -3,7 +3,7 @@
     <output-path>$PROJECT_DIR$/out/artifacts/Skratchpad_jar</output-path>
     <root id="archive" name="Skratchpad.jar">
       <element id="directory" name="META-INF">
-        <element id="file-copy" path="$PROJECT_DIR$/src/META-INF/MANIFEST.MF" />
+        <element id="file-copy" path="$PROJECT_DIR$/src/main/resources/META-INF/MANIFEST.MF" />
       </element>
       <element id="module-output" name="Skratchpad.main" />
       <element id="extracted-dir" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.eclipse.jetty/jetty-util/9.4.25.v20191220/fd8b642cc16728f1c36ca6a64653cb1b26ec0232/jetty-util-9.4.25.v20191220.jar" path-in-jar="/" />

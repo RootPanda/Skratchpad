@@ -29,5 +29,19 @@ tasks {
     compileTestKotlin {
         kotlinOptions.jvmTarget = "1.8"
     }
+    jar {
+        manifest {
+            attributes(
+                mutableMapOf<String,String>(
+                    "Main-Class" to "ca.alexleung.skratchpad.SkratchpadKt"
+                )
+            )
+        }
+        // This line of code recursively collects and copies all of a project's files
+        // and adds them to the JAR itself. One can extend this task, to skip certain
+        // files or particular types at will
+        //from { configurations.compileClasspath.get().files.stream().collect { it.isDirectory() ? it : zipTree(it) } }
+        from(configurations.compileClasspath.get().files.map { if (it.isDirectory) it else zipTree(it) })
+    }
 }
 

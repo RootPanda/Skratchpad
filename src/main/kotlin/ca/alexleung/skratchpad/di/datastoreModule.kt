@@ -1,17 +1,29 @@
 package ca.alexleung.skratchpad.di
 
+import ca.alexleung.skratchpad.data.DbNoteData
 import org.jetbrains.exposed.sql.Database
+import org.jetbrains.exposed.sql.SchemaUtils
+import org.jetbrains.exposed.sql.transactions.transaction
 import org.koin.dsl.module
 
 val datastoreModule = module {
-    single { createDatabase() }
+    single { createAndSetupDatabase() }
 }
 
-fun createDatabase(): Database {
+fun createAndSetupDatabase(): Database {
     val databaseUrl: String = System.getenv("SKRATCHPAD_DATABASE_URL") ?: "jdbc:postgresql://localhost:5432/skratchpad"
-    return Database.connect(
+    val db = Database.connect(
         databaseUrl,
         driver = "org.postgresql.Driver",
-        user = "postgres", password = "postgres"
+
+        // TODO: Read at runtime.
+        user = "postgres",
+
+        // TODO: Read at runtime.
+        password = "postgres"
     )
+    transaction(db) {
+        SchemaUtils.create(DbNoteData)
+    }
+    return db
 }
